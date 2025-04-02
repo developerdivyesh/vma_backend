@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon-32x32.png') }}">
     <style>
         body {
             background-color: #f8f9fa;
@@ -58,14 +59,7 @@
 
             <div class="form-group">
                 <label for="source">Where did you hear about us?</label>
-                <select id="source" name="source" class="form-control" required>
-                    <option value="" disabled selected>Select an option</option>
-                    <option value="VMA Member">VMA Member</option>
-                    <option value="Social Media">Social Media</option>
-                    <option value="Friend/Colleague">Friend/Colleague</option>
-                    <option value="Advertisement">Advertisement</option>
-                    <option value="Other">Other</option>
-                </select>
+                <input type="text" id="source" name="source" class="form-control" required>
             </div>
 
             <button type="submit" class="btn btn-primary btn-submit">Register</button>
