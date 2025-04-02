@@ -1,4 +1,7 @@
 <x-guest-layout>
+    <x-slot name="title">
+        VMA Pune - Admin login
+    </x-slot>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 

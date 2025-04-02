@@ -9,7 +9,7 @@ use App\Http\Controllers\VmaMemberController;
 require __DIR__.'/auth.php';
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/event-registration');
 });
 
 Route::get('/event-registration', [RegistrationController::class, 'showForm'])->name('event_registration.form');
