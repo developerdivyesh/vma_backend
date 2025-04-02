@@ -36,35 +36,90 @@
             margin-bottom: 15px;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
     <div class="form-container">
-        <!-- Logo (Replace with your logo URL) -->
+        <!-- Logo -->
         <img src="{{ asset('images/logo.jpeg') }}" alt="Logo" class="logo">
 
-        <h2>VMA & FTS, Pune <br>प्रस्तुत: इवेंट – शौर्य स्मृति</h2>
+        <h2>VMA & FTS, Pune <br><i>प्रस्तुत: मेगा इवेंट – शौर्य स्मृति</i></h2>
 
-        <form action="{{ route('event_registration.submit') }}" method="POST">
+        <form id="registrationForm" action="{{ route('event_registration.submit') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" class="form-control" required>
+                <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}" required>
+                @if ($errors->has('name'))
+                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                @endif
             </div>
 
             <div class="form-group">
                 <label for="mobile">Mobile Number</label>
-                <input type="tel" id="mobile" name="mobile" class="form-control" pattern="\d{10}" required>
+                <input type="tel" id="mobile" name="mobile" class="form-control" pattern="\d{10}" value="{{ old('mobile') }}" required>
+                @if ($errors->has('mobile'))
+                    <span class="text-danger">{{ $errors->first('mobile') }}</span>
+                @endif
             </div>
 
             <div class="form-group">
                 <label for="source">Where did you hear about us?</label>
-                <input type="text" id="source" name="source" class="form-control" required>
+                <input type="text" id="source" name="source" class="form-control" value="{{ old('source') }}" required>
+                @if ($errors->has('source'))
+                    <span class="text-danger">{{ $errors->first('source') }}</span>
+                @endif
             </div>
 
-            <button type="submit" class="btn btn-primary btn-submit">Register</button>
+            <!-- Send OTP Button -->
+            <button type="button" id="sendOtpBtn" class="btn btn-secondary btn-submit">{{ $errors->has('otp') ? 'Resend OTP' : 'Send OTP' }}</button>
+
+            <!-- OTP Input Field -->
+            <div class="form-group mt-3" id="otpField" style="{{ $errors->has('otp') ? 'display: block;' : 'display: none;' }}">
+                <label for="otp">Enter OTP</label>
+                <input type="text" id="otp" name="otp" class="form-control" pattern="\d{6}" value="{{ old('otp') }}">
+                @if ($errors->has('otp'))
+                    <span class="text-danger">{{ $errors->first('otp') }}</span>
+                @endif
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-submit" id="registerBtn" disabled>Register</button>
         </form>
     </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#sendOtpBtn').click(function () {
+                const mobile = $('#mobile').val();
+                if (!mobile.match(/^\d{10}$/)) {
+                    alert('Please enter a valid 10-digit mobile number.');
+                    return;
+                }
+
+                // Send OTP via AJAX
+                $.ajax({
+                    url: "{{ route('otp.send') }}",
+                    method: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        mobile: mobile
+                    },
+                    success: function (response) {
+                        alert(response.message);
+                        if (response.success) {
+                            $('#otpField').show();
+                            $('#registerBtn').prop('disabled', false);
+                            $('#sendOtpBtn').text('Resend OTP'); // Change button label to "Resend OTP"
+                        }
+                    },
+                    error: function () {
+                        alert('Failed to send OTP. Please try again.');
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>

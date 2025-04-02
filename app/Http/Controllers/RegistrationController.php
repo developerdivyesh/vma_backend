@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Str;
+use App\Models\Otp;
 
 class RegistrationController extends Controller
 {
@@ -33,11 +34,23 @@ class RegistrationController extends Controller
             'name'   => 'required|string|max:255',
             'mobile' => 'required|digits:10|unique:registrations,mobile',
             'source' => 'nullable|string|max:255',
+            'otp' => 'required|digits:6',
         ]);
 
         if ($validator->fails()) {
             return redirect()->route('event_registration.form')
                 ->withErrors($validator)
+                ->withInput();
+        }
+
+        $otpRecord = Otp::where('mobile', $request->mobile)
+        ->where('otp', $request->otp)
+        ->where('expires_at', '>', now())
+        ->first();
+
+        if (!$otpRecord) {
+            return redirect()->route('event_registration.form')
+                ->withErrors(['otp' => 'Invalid or expired OTP.'])
                 ->withInput();
         }
 
