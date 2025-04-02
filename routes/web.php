@@ -15,6 +15,7 @@ Route::get('/', function () {
 Route::get('/event-registration', [RegistrationController::class, 'showForm'])->name('event_registration.form');
 Route::post('/event-registration', [RegistrationController::class, 'register'])->name('event_registration.submit');
 Route::get('/event-registration/success/{id}', [RegistrationController::class, 'success'])->name('event_registration.success');
+Route::get('/show-qr/{id}', [RegistrationController::class, 'showQr'])->name('show_qr');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

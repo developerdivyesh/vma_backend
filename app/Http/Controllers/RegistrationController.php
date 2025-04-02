@@ -76,4 +76,11 @@ class RegistrationController extends Controller
         $registration = Registration::findOrFail($id);
         return view('event_registration.success', compact('registration'));
     }
+
+
+    public function showQr($id)
+    {
+        $registration = Registration::findOrFail($id);
+        return view('event_registration.show_qr', compact('registration'));
+    }
 }
