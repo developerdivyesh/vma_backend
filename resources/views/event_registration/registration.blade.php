@@ -73,7 +73,7 @@
             </div>
 
             <!-- Send OTP Button -->
-            <button type="button" id="sendOtpBtn" class="btn btn-secondary btn-submit">{{ $errors->has('otp') ? 'Resend OTP' : 'Send OTP' }}</button>
+            <button type="button" id="sendOtpBtn" class="btn btn-info btn-submit">{{ $errors->has('otp') ? 'Resend OTP' : 'Send OTP' }}</button>
 
             <!-- OTP Input Field -->
             <div class="form-group mt-3" id="otpField" style="{{ $errors->has('otp') ? 'display: block;' : 'display: none;' }}">
@@ -84,7 +84,7 @@
                 @endif
             </div>
 
-            <button type="submit" class="btn btn-primary btn-submit" id="registerBtn" disabled>Register</button>
+            <button type="submit" class="btn btn-warning btn-submit" id="registerBtn" disabled>Register</button>
         </form>
     </div>
 
