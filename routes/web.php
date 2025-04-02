@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\VmaMemberController;
+use App\Http\Controllers\OtpController;
+
 
 require __DIR__.'/auth.php';
 
@@ -16,6 +18,8 @@ Route::get('/event-registration', [RegistrationController::class, 'showForm'])->
 Route::post('/event-registration', [RegistrationController::class, 'register'])->name('event_registration.submit');
 Route::get('/event-registration/success/{id}', [RegistrationController::class, 'success'])->name('event_registration.success');
 Route::get('/show-qr/{id}', [RegistrationController::class, 'showQr'])->name('show_qr');
+Route::post('/otp/send', [OtpController::class, 'sendOtp'])->name('otp.send');
+Route::post('/otp/verify', [OtpController::class, 'verifyOtp'])->name('otp.verify');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
