@@ -14,12 +14,13 @@ class OtpController extends Controller
         $request->validate(['mobile' => 'required|digits:10']);
 
         $otp = rand(100000, 999999);
-        $expiresAt = Carbon::now()->addMinutes(5);
+        $expiresAt = Carbon::now()->addMinutes(60);
 
-        Otp::updateOrCreate(
-            ['mobile' => $request->mobile],
-            ['otp' => $otp, 'expires_at' => $expiresAt]
-        );
+        Otp::create([
+            'mobile' => $request->mobile,
+            'otp' => $otp,
+            'expires_at' => $expiresAt,
+        ]);
 
         $url = "http://dg.smsjockey.com/V2/http-api.php?apikey=ou9kbtfMqxiBSsKv&senderid=JOPlnt&number=$request->mobile&message=Hello,%20$otp%20is%20an%20OTP%20to%20confirm%20your%20registration.%20NEVER%20SHARE%20IT%20WITH%20ANYONE.%20JOPInt&format=json";
 
@@ -47,7 +48,7 @@ class OtpController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'OTP sent successfully!',
-                    'otp' => $otp // You may choose to send the OTP back, depending on your security policy
+                    'otp' => $otp
                 ]);
             } else {
                 return response()->json([

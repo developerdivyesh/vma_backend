@@ -17,7 +17,7 @@ class RegistrationController extends Controller
             abort(403, 'Unauthorized access');
         }
     
-        $registrations = Registration::latest()->get();
+        $registrations = Registration::latest()->paginate(50);
         return view('admin.registrations.index', compact('registrations'));
     }
 
@@ -31,9 +31,12 @@ class RegistrationController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'   => 'required|string|max:255',
-            'mobile' => 'required|digits:10|unique:registrations,mobile',
-            'source' => 'nullable|string|max:255',
+            'salutation' => 'required|string|in:Mr.,Ms.,Mrs.',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'mobile' => 'required|digits:10',
+            'source' => 'nullable|string|max:20',
+            'age' => 'required|integer|min:1|max:120',
             'otp' => 'required|digits:6',
         ], [
             'mobile.unique' => 'You have already registered.',
@@ -58,9 +61,13 @@ class RegistrationController extends Controller
 
         // Create new registration entry
         $registration = Registration::create([
-            'name'   => $request->name,
-            'mobile' => $request->mobile,
-            'source' => $request->source,
+            'salutation' => $request->salutation,
+            'name'     => $request->first_name . ' ' . $request->last_name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'mobile'     => $request->mobile,
+            'source'     => $request->source,
+            'age'        => $request->age,
         ]);
 
         // Get registration ID

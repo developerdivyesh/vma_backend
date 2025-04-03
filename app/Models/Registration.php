@@ -10,7 +10,16 @@ class Registration extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'mobile', 'source', 'qr_code_path'];
+    protected $fillable = [
+        'salutation',
+        'name',
+        'first_name',
+        'last_name',
+        'mobile',
+        'source',
+        'age', 
+        'qr_code_path'
+    ];
 
     public function attendances() {
         return $this->hasMany(Attendance::class);

@@ -6,6 +6,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\VmaMemberController;
 use App\Http\Controllers\OtpController;
+use App\Exports\RegistrationsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 require __DIR__.'/auth.php';
@@ -38,5 +40,9 @@ Route::middleware(['admin'])->group(function () {
         'as' => 'admin',
         'parameters' => ['vma-members' => 'user']
     ])->except(['show']);
+    Route::get('/admin/registrations/export', function () {
+        $filename = 'Event-Registration-' . now()->format('d-m-Y_H-i-s') . '.xlsx';
+        return Excel::download(new RegistrationsExport, $filename);
+    })->name('registrations.export');
 });
 

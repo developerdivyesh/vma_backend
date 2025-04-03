@@ -10,7 +10,7 @@
 <body>
 <div class="container mt-5 text-center">
     <h2>Registration Successful</h2>
-    <p>Thank you, {{ $registration->name }}! Your registration is complete.</p>
+    <p>Thank you, {{ $registration->name }} Ji! Your registration is complete.</p>
     <h4>Your QR Code:</h4>
     <img src="{{ asset('qrcodes/' . $registration->qr_code_path) }}" alt="QR Code" class="img-fluid">
     <p>Please save this QR code. You will need it at the entrance.</p>

@@ -23,11 +23,10 @@ class VmaMemberController extends Controller
 
     public function store(Request $request)
     {
-        //dd($request->all()); // Debugging line to check the request data
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'mobile' => 'required|string|max:10',
+            'mobile' => 'required|string|max:10|unique:users,mobile',
             'password' => 'required|string|min:8',
             'status' => 'required|in:active,inactive',
         ]);
@@ -56,7 +55,7 @@ class VmaMemberController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'mobile' => 'required|string|max:15',
+            'mobile' => 'required|string|max:10|unique:users,mobile,' . $user->id,
             'status' => 'required|in:active,inactive',
         ]);
 

@@ -25,7 +25,7 @@
         }
         .form-container .logo {
             display: block;
-            max-width: 120px;
+            max-width: 240px;
             margin: 0 auto 20px;
         }
         .btn-submit {
@@ -35,6 +35,11 @@
         .form-group {
             margin-bottom: 15px;
         }
+        .logo {
+            width: 120px;
+            height: auto;
+            margin: 0 10px;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -42,49 +47,81 @@
 
     <div class="form-container">
         <!-- Logo -->
-        <img src="{{ asset('images/logo.jpeg') }}" alt="Logo" class="logo">
+        <div class="text-center d-flex justify-content-center align-items-center">
+            <img src="{{ asset('images/logo.jpeg') }}" alt="Logo 1" class="logo mx-2" style="width: 120px;">
+            <img src="{{ asset('images/fts-logo.jpg') }}" alt="Logo 2" class="logo mx-2" style="width: 239px;">
+        </div>
+        
 
         <h2>VMA & FTS, Pune <br><i>प्रस्तुत: मेगा इवेंट – शौर्य स्मृति</i></h2>
 
         <form id="registrationForm" action="{{ route('event_registration.submit') }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}" required>
-                @if ($errors->has('name'))
-                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                <label for="salutation">Salutation</label>
+                <select id="salutation" name="salutation" class="form-control" required>
+                    <option selected disabled value="">Select</option>
+                    <option value="Mr." {{ old('salutation') == 'Mr.' ? 'selected' : '' }}>Mr.</option>
+                    <option value="Ms." {{ old('salutation') == 'Ms.' ? 'selected' : '' }}>Ms.</option>
+                    <option value="Mrs." {{ old('salutation') == 'Mrs.' ? 'selected' : '' }}>Mrs.</option>
+                </select>
+                @if ($errors->has('salutation'))
+                    <span class="text-danger">{{ $errors->first('salutation') }}</span>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" id="first_name" name="first_name" class="form-control" value="{{ old('first_name') }}" required>
+                @if ($errors->has('first_name'))
+                    <span class="text-danger">{{ $errors->first('first_name') }}</span>
+                @endif
+            </div>
+
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" id="last_name" name="last_name" class="form-control" value="{{ old('last_name') }}" required>
+                @if ($errors->has('last_name'))
+                    <span class="text-danger">{{ $errors->first('last_name') }}</span>
                 @endif
             </div>
 
             <div class="form-group">
                 <label for="mobile">Mobile Number</label>
-                <input type="tel" id="mobile" name="mobile" class="form-control" pattern="\d{10}" value="{{ old('mobile') }}" required>
+                <input type="tel" id="mobile" name="mobile" class="form-control" maxlength="10" pattern="\d{10}" value="{{ old('mobile') }}" required>
                 @if ($errors->has('mobile'))
                     <span class="text-danger">{{ $errors->first('mobile') }}</span>
                 @endif
             </div>
 
             <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" class="form-control" value="{{ old('age') }}" required>
+                @if ($errors->has('age'))
+                    <span class="text-danger">{{ $errors->first('age') }}</span>
+                @endif
+            </div>
+
+            <div class="form-group">
                 <label for="source">Where did you hear about us?</label>
-                <input type="text" id="source" name="source" class="form-control" value="{{ old('source') }}" required>
+                <input type="text" id="source" name="source" class="form-control" maxlength="20" value="{{ old('source') }}" required>
                 @if ($errors->has('source'))
                     <span class="text-danger">{{ $errors->first('source') }}</span>
                 @endif
             </div>
 
             <!-- Send OTP Button -->
-            <button type="button" id="sendOtpBtn" class="btn btn-info btn-submit">{{ $errors->has('otp') ? 'Resend OTP' : 'Send OTP' }}</button>
+            <button type="button" id="sendOtpBtn" style="margin-bottom : 20px;" class="btn btn-info btn-submit">{{ $errors->has('otp') ? 'Resend OTP' : 'Send OTP' }}</button>
 
             <!-- OTP Input Field -->
             <div class="form-group mt-3" id="otpField" style="{{ $errors->has('otp') ? 'display: block;' : 'display: none;' }}">
                 <label for="otp">Enter OTP</label>
-                <input type="text" id="otp" name="otp" class="form-control" pattern="\d{6}" value="{{ old('otp') }}">
+                <input type="text" id="otp" name="otp" class="form-control" pattern="\d{6}" maxlength="6" value="{{ old('otp') }}">
                 @if ($errors->has('otp'))
                     <span class="text-danger">{{ $errors->first('otp') }}</span>
                 @endif
             </div>
 
-            <button type="submit" class="btn btn-warning btn-submit" id="registerBtn" disabled>Register</button>
+            <button type="submit" class="btn btn-warning btn-submit" id="registerBtn" {{ $errors->has('otp') ? 'enabled' : 'disabled' }} >Register</button>
         </form>
     </div>
 
@@ -110,7 +147,7 @@
                         if (response.success) {
                             $('#otpField').show();
                             $('#registerBtn').prop('disabled', false);
-                            $('#sendOtpBtn').text('Resend OTP'); // Change button label to "Resend OTP"
+                            $('#sendOtpBtn').text('Resend OTP');
                         }
                     },
                     error: function () {
@@ -118,6 +155,10 @@
                     }
                 });
             });
+        });
+
+        $('#registrationForm').submit(function () {
+            $('#registerBtn').prop('disabled', true).text('Processing...');
         });
     </script>
 
