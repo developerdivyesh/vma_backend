@@ -18,7 +18,8 @@ class Registration extends Model
         'mobile',
         'source',
         'age', 
-        'qr_code_path'
+        'qr_code_path',
+        'native_place',
     ];
 
     public function attendances() {

@@ -10,7 +10,7 @@
 <body>
 <div class="container mt-5 text-center">
     <h2>Your QR Code</h2>
-    <p>Thank you, {{ $registration->name }}! Here is your QR code for the event.</p>
+    <p>Thank you, {{ $registration->name }} Ji! Here is your QR code for the event.</p>
     <img src="{{ asset('qrcodes/' . $registration->qr_code_path) }}" alt="QR Code" class="img-fluid">
     <p>Please save this QR code. You will need it at the entrance.</p>
 

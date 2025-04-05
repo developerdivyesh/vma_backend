@@ -38,6 +38,7 @@ class RegistrationController extends Controller
             'source' => 'nullable|string|max:20',
             'age' => 'required|integer|min:1|max:120',
             'otp' => 'required|digits:6',
+            'native_place' => 'required|string|max:255',
         ], [
             'mobile.unique' => 'You have already registered.',
         ]);
@@ -68,6 +69,7 @@ class RegistrationController extends Controller
             'mobile'     => $request->mobile,
             'source'     => $request->source,
             'age'        => $request->age,
+            'native_place' => $request->native_place,
         ]);
 
         // Get registration ID

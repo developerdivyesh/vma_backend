@@ -21,6 +21,7 @@ class RegistrationsExport implements FromCollection, WithHeadings
             'last_name',
             'mobile',
             'age',
+            'native_place',
             'source',
             'created_at',
         ])->map(function ($registration) {
@@ -41,6 +42,7 @@ class RegistrationsExport implements FromCollection, WithHeadings
             'Last Name',
             'Mobile',
             'Age',
+            'Native Place',
             'Source',
             'Created At',
         ];

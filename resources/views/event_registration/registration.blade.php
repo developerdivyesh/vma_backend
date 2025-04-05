@@ -71,7 +71,7 @@
             </div>
             <div class="form-group">
                 <label for="first_name">First Name</label>
-                <input type="text" id="first_name" name="first_name" class="form-control" value="{{ old('first_name') }}" required>
+                <input type="text" id="first_name" name="first_name" class="form-control" value="{{ old('first_name') }}" placeholder="First Name" required>
                 @if ($errors->has('first_name'))
                     <span class="text-danger">{{ $errors->first('first_name') }}</span>
                 @endif
@@ -79,7 +79,7 @@
 
             <div class="form-group">
                 <label for="last_name">Last Name</label>
-                <input type="text" id="last_name" name="last_name" class="form-control" value="{{ old('last_name') }}" required>
+                <input type="text" id="last_name" name="last_name" class="form-control" value="{{ old('last_name') }}" placeholder="Last Name" required>
                 @if ($errors->has('last_name'))
                     <span class="text-danger">{{ $errors->first('last_name') }}</span>
                 @endif
@@ -87,7 +87,7 @@
 
             <div class="form-group">
                 <label for="mobile">Mobile Number</label>
-                <input type="tel" id="mobile" name="mobile" class="form-control" maxlength="10" pattern="\d{10}" value="{{ old('mobile') }}" required>
+                <input type="tel" id="mobile" name="mobile" class="form-control" maxlength="10" pattern="\d{10}" value="{{ old('mobile') }}" placeholder="Mobile No" required>
                 @if ($errors->has('mobile'))
                     <span class="text-danger">{{ $errors->first('mobile') }}</span>
                 @endif
@@ -95,15 +95,23 @@
 
             <div class="form-group">
                 <label for="age">Age</label>
-                <input type="number" id="age" name="age" class="form-control" value="{{ old('age') }}" required>
+                <input type="number" id="age" name="age" class="form-control" value="{{ old('age') }}"  placeholder="Age" required>
                 @if ($errors->has('age'))
                     <span class="text-danger">{{ $errors->first('age') }}</span>
                 @endif
             </div>
 
             <div class="form-group">
+                <label for="native_place">Native Place</label>
+                <input type="text" id="native_place" name="native_place" class="form-control" value="{{ old('native_place') }}"  placeholder="Native Place" required>
+                @if ($errors->has('native_place'))
+                    <span class="text-danger">{{ $errors->first('native_place') }}</span>
+                @endif
+            </div>
+
+            <div class="form-group">
                 <label for="source">Where did you hear about us?</label>
-                <input type="text" id="source" name="source" class="form-control" maxlength="20" value="{{ old('source') }}" required>
+                <input type="text" id="source" name="source" class="form-control" maxlength="20" value="{{ old('source') }}" placeholder="Where did you here about us?" required>
                 @if ($errors->has('source'))
                     <span class="text-danger">{{ $errors->first('source') }}</span>
                 @endif
@@ -121,7 +129,7 @@
                 @endif
             </div>
 
-            <button type="submit" class="btn btn-warning btn-submit" id="registerBtn" {{ $errors->has('otp') ? 'enabled' : 'disabled' }} >Register</button>
+            <button type="submit" class="btn btn-warning btn-submit" id="registerBtn" {{ $errors->has('otp') ? 'enabled' : 'disabled' }} >Verify OTP and Submit</button>
         </form>
     </div>
 
