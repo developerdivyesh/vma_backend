@@ -30,10 +30,29 @@
                 </header>
             @endisset
 
+            <!-- Success Message -->
+            @if (session('success'))
+                <div id="success-message" class="bg-green-500 text-white p-4 rounded mb-4 max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <!-- Page Content -->
             <main>
                 {{ $slot }}
             </main>
         </div>
+
+        <!-- Hide Success Message After 5 Seconds -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const successMessage = document.getElementById('success-message');
+                if (successMessage) {
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 3000); // 5000ms = 5 seconds
+                }
+            });
+        </script>
     </body>
 </html>

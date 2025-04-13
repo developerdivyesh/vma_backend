@@ -21,6 +21,12 @@ class ApiAuthController extends Controller
 
         $user = User::where('mobile', $request->mobile)->first();
 
+        if (!$user || $user->status === 'inactive') {
+            return response()->json(
+                ['message' => 'Account inactive. Please contact your admin.', 'status' => false], 401
+            );
+        }
+
         if (!$user || !Auth::attempt(['mobile' => $request->mobile, 'password' => $request->password])) {
             return response()->json(
                 ['message' => 'Incorrect credentials', 'status' => false], 401);

@@ -10,7 +10,8 @@ class VmaMemberController extends Controller
 {
     public function index()
     {
-        $members = User::where('is_vma', true)->get();
+        $members = User::where('is_vma', true)->paginate(10);
+
         return view('admin.vma_members.index', compact('members'));
     }
 
@@ -74,5 +75,24 @@ class VmaMemberController extends Controller
     {
         $user->delete();
         return redirect()->route('admin.vma-members.index')->with('success', 'VMA Member deleted successfully.');
+    }
+
+
+    public function changePassword(User $member)
+    {
+        return view('admin.vma_members.change_password', compact('member'));
+    }
+
+
+    public function updatePassword(Request $request, User $member)
+    {
+        $request->validate([
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $member->password = Hash::make($request->password);
+        $member->save();
+
+        return redirect()->route('admin.vma-members.index')->with('success', 'Password updated successfully.');
     }
 }

@@ -133,6 +133,11 @@
         </form>
     </div>
 
+    <footer class="text-center mt-5 py-3 bg-light">
+        <p class="mb-0">&copy; {{ date('Y') }} VMA & FTS, Pune. All rights reserved.</p>
+        <p class="mb-0">Powered by <b>Tatva Digitals</b></p>
+    </footer>
+
     <script>
         $(document).ready(function () {
             $('#sendOtpBtn').click(function () {

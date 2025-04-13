@@ -14,6 +14,8 @@
     <img src="{{ asset('qrcodes/' . $registration->qr_code_path) }}" alt="QR Code" class="img-fluid">
     <p>Please save this QR code. You will need it at the entrance.</p>
 
+    <p class="text-danger mt-3"><strong>Note:</strong> This is single person registration, for multiple people please do different registrations.</p>
+
     <!-- Download QR Code -->
     <a href="{{ asset('qrcodes/' . $registration->qr_code_path) }}" download="qr_code_{{ $registration->id }}.png" class="btn btn-primary mt-3">Download QR Code</a>
 </div>

@@ -11,13 +11,17 @@ use App\Models\Otp;
 
 class RegistrationController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Unauthorized access');
+        $query = Registration::query();
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('name', 'like', "%{$search}%")
+                ->orWhere('mobile', 'like', "%{$search}%");
         }
-    
-        $registrations = Registration::latest()->paginate(50);
+
+        $registrations = $query->latest()->paginate(50);
         return view('admin.registrations.index', compact('registrations'));
     }
 
