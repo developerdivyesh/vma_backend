@@ -48,27 +48,17 @@
     <div class="form-container">
         <!-- Logo -->
         <div class="text-center d-flex justify-content-center align-items-center">
-            <img src="{{ asset('images/logo.jpeg') }}" alt="Logo 1" class="logo mx-2" style="width: 120px;">
-            <img src="{{ asset('images/fts-logo.jpg') }}" alt="Logo 2" class="logo mx-2" style="width: 239px;">
+            <img src="{{ asset('images/fts-yuva.jpeg') }}" alt="Logo 1" class="logo mx-2">
+            <img src="{{ asset('images/fts-mahila.jpeg') }}" alt="Logo 1" class="logo mx-2">
+            <img src="{{ asset('images/fts-logo.jpg') }}" alt="Logo 2" class="logo mx-2">
         </div>
         
 
-        <h2>VMA & FTS, Pune <br><i>प्रस्तुत: मेगा इवेंट – शौर्य स्मृति</i></h2>
+        <h2>EKAL SURTAAL 2026</h2>
+        <br>
 
         <form id="registrationForm" action="{{ route('event_registration.submit') }}" method="POST">
             @csrf
-            <div class="form-group">
-                <label for="salutation">Salutation</label>
-                <select id="salutation" name="salutation" class="form-control" required>
-                    <option selected disabled value="">Select</option>
-                    <option value="Mr." {{ old('salutation') == 'Mr.' ? 'selected' : '' }}>Mr.</option>
-                    <option value="Ms." {{ old('salutation') == 'Ms.' ? 'selected' : '' }}>Ms.</option>
-                    <option value="Mrs." {{ old('salutation') == 'Mrs.' ? 'selected' : '' }}>Mrs.</option>
-                </select>
-                @if ($errors->has('salutation'))
-                    <span class="text-danger">{{ $errors->first('salutation') }}</span>
-                @endif
-            </div>
             <div class="form-group">
                 <label for="first_name">First Name</label>
                 <input type="text" id="first_name" name="first_name" class="form-control" value="{{ old('first_name') }}" placeholder="First Name" required>
@@ -94,82 +84,34 @@
             </div>
 
             <div class="form-group">
-                <label for="age">Age</label>
-                <input type="number" id="age" name="age" class="form-control" value="{{ old('age') }}"  placeholder="Age" required>
-                @if ($errors->has('age'))
-                    <span class="text-danger">{{ $errors->first('age') }}</span>
-                @endif
-            </div>
-
-            <div class="form-group">
-                <label for="native_place">Native Place</label>
-                <input type="text" id="native_place" name="native_place" class="form-control" value="{{ old('native_place') }}"  placeholder="Native Place" required>
-                @if ($errors->has('native_place'))
-                    <span class="text-danger">{{ $errors->first('native_place') }}</span>
-                @endif
-            </div>
-
-            <div class="form-group">
-                <label for="source">Where did you hear about us?</label>
-                <input type="text" id="source" name="source" class="form-control" maxlength="20" value="{{ old('source') }}" placeholder="Where did you here about us?" required>
+                <label for="source">Invited By</label>
+                <input type="text" id="source" name="source" class="form-control" maxlength="20" value="{{ old('source') }}" placeholder="Invited By" required>
                 @if ($errors->has('source'))
                     <span class="text-danger">{{ $errors->first('source') }}</span>
                 @endif
             </div>
 
-            <!-- Send OTP Button -->
-            <button type="button" id="sendOtpBtn" style="margin-bottom : 20px;" class="btn btn-info btn-submit">{{ $errors->has('otp') ? 'Resend OTP' : 'Send OTP' }}</button>
-
-            <!-- OTP Input Field -->
-            <div class="form-group mt-3" id="otpField" style="{{ $errors->has('otp') ? 'display: block;' : 'display: none;' }}">
-                <label for="otp">Enter OTP</label>
-                <input type="text" id="otp" name="otp" class="form-control" pattern="\d{6}" maxlength="6" value="{{ old('otp') }}">
-                @if ($errors->has('otp'))
-                    <span class="text-danger">{{ $errors->first('otp') }}</span>
+            <div class="form-group">
+                <label for="custom_field_1">Are you interested in Ekal Membership?</label>
+                <select id="custom_field_1" name="custom_field_1" class="form-control">
+                    <option value="">Select</option>
+                    <option value="Yes" {{ old('custom_field_1') == 'Yes' ? 'selected' : '' }}>Yes</option>
+                    <option value="No" {{ old('custom_field_1') == 'No' ? 'selected' : '' }}>No</option>
+                </select>
+                @if ($errors->has('custom_field_1'))
+                    <span class="text-danger">{{ $errors->first('custom_field_1') }}</span>
                 @endif
             </div>
-
-            <button type="submit" class="btn btn-warning btn-submit" id="registerBtn" {{ $errors->has('otp') ? 'enabled' : 'disabled' }} >Verify OTP and Submit</button>
+            <button type="submit" class="btn btn-warning btn-submit" id="registerBtn">Submit</button>
         </form>
     </div>
 
     <footer class="text-center mt-5 py-3 bg-light">
-        <p class="mb-0">&copy; {{ date('Y') }} VMA & FTS, Pune. All rights reserved.</p>
+        <p class="mb-0">&copy; {{ date('Y') }} FTS, Pune. All rights reserved.</p>
         <p class="mb-0">Powered by <b>Tatva Digitals</b></p>
     </footer>
 
     <script>
-        $(document).ready(function () {
-            $('#sendOtpBtn').click(function () {
-                const mobile = $('#mobile').val();
-                if (!mobile.match(/^\d{10}$/)) {
-                    alert('Please enter a valid 10-digit mobile number.');
-                    return;
-                }
-
-                // Send OTP via AJAX
-                $.ajax({
-                    url: "{{ route('otp.send') }}",
-                    method: "POST",
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        mobile: mobile
-                    },
-                    success: function (response) {
-                        alert(response.message);
-                        if (response.success) {
-                            $('#otpField').show();
-                            $('#registerBtn').prop('disabled', false);
-                            $('#sendOtpBtn').text('Resend OTP');
-                        }
-                    },
-                    error: function () {
-                        alert('Failed to send OTP. Please try again.');
-                    }
-                });
-            });
-        });
-
         $('#registrationForm').submit(function () {
             $('#registerBtn').prop('disabled', true).text('Processing...');
         });

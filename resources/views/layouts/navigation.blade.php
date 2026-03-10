@@ -22,8 +22,8 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('admin.vma-members.index')" :active="request()->routeIs('admin.vma-members.index')">
-                        VMA Members
+                    <x-nav-link :href="route('admin.members.index')" :active="request()->routeIs('admin.members.index')">
+                        Members
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">

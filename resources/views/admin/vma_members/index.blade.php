@@ -13,7 +13,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="mb-4 flex flex-col sm:flex-row justify-between items-center">
-                        <a href="{{ route('admin.vma-members.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 sm:mb-0">
+                        <a href="{{ route('admin.members.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 sm:mb-0">
                             Add Member
                         </a>
                     </div>
@@ -38,11 +38,11 @@
                                         <td class="border border-gray-300 px-4 py-2">{{ $member->mobile }}</td>
                                         <td class="border border-gray-300 px-4 py-2">{{ ucfirst($member->status) }}</td>
                                         <td class="border border-gray-300 px-4 py-2">
-                                            <a href="{{ route('admin.vma-members.edit', $member) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded">
+                                            <a href="{{ route('admin.members.edit', $member) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded">
                                                 Edit
                                             </a>
                                             &nbsp;
-                                            <a href="{{ route('admin.vma-members.change-password', $member) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
+                                            <a href="{{ route('admin.members.change-password', $member) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
                                                 Change Password
                                             </a>
                                         </td>

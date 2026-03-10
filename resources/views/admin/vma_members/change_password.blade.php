@@ -24,7 +24,7 @@
                     @endif
 
                     <!-- Change Password Form -->
-                    <form method="POST" action="{{ route('admin.vma-members.update-password', $member) }}">
+                    <form method="POST" action="{{ route('admin.members.update-password', $member) }}">
                         @csrf
                         @method('PUT')
 

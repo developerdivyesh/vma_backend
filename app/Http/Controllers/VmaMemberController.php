@@ -41,7 +41,7 @@ class VmaMemberController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('admin.vma-members.index')->with('success', 'VMA Member added successfully.');
+        return redirect()->route('admin.members.index')->with('success', 'VMA Member added successfully.');
     }
 
 
@@ -67,14 +67,14 @@ class VmaMemberController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('admin.vma-members.index')->with('success', 'VMA Member updated successfully.');
+        return redirect()->route('admin.members.index')->with('success', 'VMA Member updated successfully.');
     }
 
 
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('admin.vma-members.index')->with('success', 'VMA Member deleted successfully.');
+        return redirect()->route('admin.members.index')->with('success', 'VMA Member deleted successfully.');
     }
 
 
@@ -93,6 +93,6 @@ class VmaMemberController extends Controller
         $member->password = Hash::make($request->password);
         $member->save();
 
-        return redirect()->route('admin.vma-members.index')->with('success', 'Password updated successfully.');
+        return redirect()->route('admin.members.index')->with('success', 'Password updated successfully.');
     }
 }

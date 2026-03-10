@@ -20,6 +20,11 @@ class Registration extends Model
         'age', 
         'qr_code_path',
         'native_place',
+        'custom_field_1',
+        'custom_field_2',
+        'custom_field_3',
+        'custom_field_4',
+        'custom_field_5',
     ];
 
     public function attendances() {

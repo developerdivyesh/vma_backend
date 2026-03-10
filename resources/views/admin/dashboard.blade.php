@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        VMA Pune - Dashboard
+        Dashboard
     </x-slot>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -21,9 +21,9 @@
 
                 <!-- VMA Members Card -->
                 <div class="bg-white shadow-md rounded-lg p-6">
-                    <h3 class="text-lg font-semibold">Total VMA Members</h3>
+                    <h3 class="text-lg font-semibold">Total Members</h3>
                     <p class="text-4xl font-bold my-4">{{ $vmaMemberCount }}</p>
-                    <a href="{{ route('admin.vma-members.index') }}" class="text-blue-500 hover:underline">View VMA Members</a>
+                    <a href="{{ route('admin.members.index') }}" class="text-blue-500 hover:underline">View Members</a>
                 </div>
 
                 <!-- Attendance Card -->

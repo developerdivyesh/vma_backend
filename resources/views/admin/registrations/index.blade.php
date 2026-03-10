@@ -46,9 +46,8 @@
                                     <th class="border border-gray-300 px-4 py-2">ID</th>
                                     <th class="border border-gray-300 px-4 py-2">Name</th>
                                     <th class="border border-gray-300 px-4 py-2">Mobile</th>
-                                    <th class="border border-gray-300 px-4 py-2">Age</th>
-                                    <th class="border border-gray-300 px-4 py-2">Native</th>
-                                    <th class="border border-gray-300 px-4 py-2">Source</th>
+                                    <th class="border border-gray-300 px-4 py-2">Invited By</th>
+                                    <th class="border border-gray-300 px-4 py-2">Interested inEkal Membership</th>
                                     <th class="border border-gray-300 px-4 py-2">QR Code</th>
                                     <th class="border border-gray-300 px-4 py-2">Created At</th>
                                 </tr>
@@ -57,11 +56,10 @@
                                 @foreach ($registrations as $registration)
                                     <tr>
                                         <td class="border border-gray-300 px-4 py-2">{{ $registration->id }}</td>
-                                        <td class="border border-gray-300 px-4 py-2">{{ $registration->salutation }} {{ $registration->name }}</td>
+                                        <td class="border border-gray-300 px-4 py-2">{{ $registration->name }}</td>
                                         <td class="border border-gray-300 px-4 py-2">{{ $registration->mobile }}</td>
-                                        <td class="border border-gray-300 px-4 py-2">{{ $registration->age }}</td>
-                                        <td class="border border-gray-300 px-4 py-2">{{ $registration->native_place }}</td>
                                         <td class="border border-gray-300 px-4 py-2">{{ $registration->source }}</td>
+                                        <td class="border border-gray-300 px-4 py-2">{{ $registration->custom_field_1 ? 'Yes' : 'No' }}</td>
                                         <td class="border border-gray-300 px-4 py-2">
                                             @if ($registration->qr_code_path)
                                                 <img src="{{ asset('qrcodes/' . $registration->qr_code_path) }}" alt="QR Code" class="w-16 h-16">

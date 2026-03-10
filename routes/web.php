@@ -39,16 +39,16 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/admin/registrations', [RegistrationController::class, 'index'])->name('admin.registrations.index');
     Route::get('/admin/attendance-list', [AttendanceController::class, 'index'])->name('admin.attendance.list');
 
-    Route::resource('/admin/vma-members', VmaMemberController::class, [
+    Route::resource('/admin/members', VmaMemberController::class, [
         'as' => 'admin',
-        'parameters' => ['vma-members' => 'user']
+        'parameters' => ['members' => 'user']
     ])->except(['show']);
     Route::get('/admin/registrations/export', function () {
         $filename = 'Event-Registration-' . now()->format('d-m-Y_H-i-s') . '.xlsx';
         return Excel::download(new RegistrationsExport, $filename);
     })->name('registrations.export');
 
-    Route::get('admin/vma-members/{member}/change-password', [VmaMemberController::class, 'changePassword'])->name('admin.vma-members.change-password');
-    Route::put('admin/vma-members/{member}/update-password', [VmaMemberController::class, 'updatePassword'])->name('admin.vma-members.update-password');
+    Route::get('admin/members/{member}/change-password', [VmaMemberController::class, 'changePassword'])->name('admin.members.change-password');
+    Route::put('admin/members/{member}/update-password', [VmaMemberController::class, 'updatePassword'])->name('admin.members.update-password');
 });
 

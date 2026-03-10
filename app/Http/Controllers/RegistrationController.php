@@ -35,14 +35,15 @@ class RegistrationController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'salutation' => 'required|string|in:Mr.,Ms.,Mrs.',
+            // 'salutation' => 'required|string|in:Mr.,Ms.,Mrs.',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'mobile' => 'required|digits:10',
             'source' => 'nullable|string|max:20',
-            'age' => 'required|integer|min:1|max:120',
-            'otp' => 'required|digits:6',
-            'native_place' => 'required|string|max:255',
+            // 'age' => 'required|integer|min:1|max:120',
+            // 'otp' => 'required|digits:6',
+            // 'native_place' => 'required|string|max:255',
+            'custom_field_1' => 'nullable|string|max:255',
         ], [
             'mobile.unique' => 'You have already registered.',
         ]);
@@ -53,27 +54,28 @@ class RegistrationController extends Controller
                 ->withInput();
         }
 
-        $otpRecord = Otp::where('mobile', $request->mobile)
-        ->where('otp', $request->otp)
-        ->where('expires_at', '>', now())
-        ->first();
+        // $otpRecord = Otp::where('mobile', $request->mobile)
+        // ->where('otp', $request->otp)
+        // ->where('expires_at', '>', now())
+        // ->first();
 
-        if (!$otpRecord) {
-            return redirect()->route('event_registration.form')
-                ->withErrors(['otp' => 'Invalid or expired OTP.'])
-                ->withInput();
-        }
+        // if (!$otpRecord) {
+        //     return redirect()->route('event_registration.form')
+        //         ->withErrors(['otp' => 'Invalid or expired OTP.'])
+        //         ->withInput();
+        // }
 
         // Create new registration entry
         $registration = Registration::create([
-            'salutation' => $request->salutation,
+             'salutation' => '',
             'name'     => $request->first_name . ' ' . $request->last_name,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'mobile'     => $request->mobile,
             'source'     => $request->source,
-            'age'        => $request->age,
-            'native_place' => $request->native_place,
+            'age'        => 0,
+            // 'native_place' => $request->native_place,
+            'custom_field_1' => $request->custom_field_1,
         ]);
 
         // Get registration ID
