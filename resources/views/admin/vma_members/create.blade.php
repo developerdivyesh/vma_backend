@@ -1,10 +1,10 @@
 <x-app-layout>
     <x-slot name="title">
-        VMA Pune - VMA Members
+        FTS Pune - FTS Members
     </x-slot>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Add VMA Member') }}
+            {{ __('Add FTS Member') }}
         </h2>
     </x-slot>
 

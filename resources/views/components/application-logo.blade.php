@@ -1,1 +1,1 @@
-<img src="{{ asset('images/logo.jpeg') }}" alt="Application Logo" style="width: 50px; height: auto;">
+<img src="{{ asset('images/fts-logo.jpg') }}" alt="Application Logo" style="width: 50px; height: auto;">

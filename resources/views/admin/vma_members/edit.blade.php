@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        VMA Pune - VMA Members
+        FTS Pune - FTS Members
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
